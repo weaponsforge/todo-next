@@ -8,9 +8,20 @@ The following dependencies are used for this project. Feel free to use other dep
 
 1. Windows 10 OS
 2. nvm for Windows v1.1.9
-3. NodeJS 16.14.2, installed using nvm
+3. NodeJS 16.14.2 installed using nvm
    - node v16.14.2
    - npm v8.5.0
+
+## Content
+
+- [todo-next / server](#todo-next--server)
+- [Requirements](#requirements)
+- [Content](#content)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Available Scripts](#available-scripts)
+  - [`npm start`](#npm-start)
+  - [`npm run dev`](#npm-run-dev)
 
 ## Installation
 
@@ -27,8 +38,20 @@ The following dependencies are used for this project. Feel free to use other dep
    | ALLOWED_ORIGINS | IP/domain origins in comma-separated values that are allowed to access the API if `ALLOW_CORS=1`.<br> Include `http://localhost:3000` by default to allow CORS access to the **/client** app.                                                         |
    | ALLOW_CORS      | Allow Cross-Origin Resource Sharing (CORS) on the API endpoints.<br><br>Default value is `1`, allowing access to domains listed in `ALLOWED_ORIGINS`.<br> Setting to `0` will make all endpoints accept requests from all domains, including Postman. |
 
+## Usage
+
 1. Run the app.<br>
 `npm start`
+
+## Available Scripts
+
+### `npm start`
+
+Run the express server for production mode.
+
+### `npm run dev`
+
+Run the server for development mode using [nodemon](https://www.npmjs.com/package/nodemon).
 
 @weaponsforge<br>
 20220820
