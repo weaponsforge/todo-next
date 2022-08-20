@@ -1,6 +1,6 @@
 ## todo-next / server
 
-This directory contains the backend express that serves the Todo CRUD API endpoints.
+This directory contains the backend express app that serves the Todo CRUD API endpoints.
 
 ## Requirements
 
@@ -22,6 +22,8 @@ The following dependencies are used for this project. Feel free to use other dep
 - [Available Scripts](#available-scripts)
   - [`npm start`](#npm-start)
   - [`npm run dev`](#npm-run-dev)
+  - [`npm run lint`](#npm-run-lint)
+  - [`npm run lint:fix`](#npm-run-lintfix)
 
 ## Installation
 
@@ -52,6 +54,15 @@ Run the express server for production mode.
 ### `npm run dev`
 
 Run the server for development mode using [nodemon](https://www.npmjs.com/package/nodemon).
+
+### `npm run lint`
+
+Lint the server JavaScript source codes.
+
+
+### `npm run lint:fix`
+
+Fix JavaScript lint errors.
 
 @weaponsforge<br>
 20220820
