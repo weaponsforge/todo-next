@@ -7,7 +7,8 @@ todo-next is a regular TO-DO notes listing app aimed for testing using NextJS an
 1. Clone this repository.<br>
 `https://github.com/weaponsforge/todo-next.git`
 
-2. Read the **README** file inside the `/server` directory for more information on how to configure and use the backend.
+2. Read the instructions on the **README** file inside the `/server` directory for more information on configuring and using the backend.
+
 
 @weaponsforge<br>
 20220820

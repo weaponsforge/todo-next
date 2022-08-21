@@ -6,6 +6,7 @@ const app = express()
 const PORT = process.env.PORT || 3001
 
 const { corsOptions } = require('./utils/cors_options')
+require('./utils/db')
 
 // Initialize the express app
 app.use(express.json())
