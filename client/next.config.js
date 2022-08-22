@@ -6,6 +6,9 @@ const nextConfig = {
   images: {
     loader: 'custom'
   },
+  eslint: {
+    dirs: ['pages', 'styles', 'src']
+  },
 }
 
 module.exports = nextConfig

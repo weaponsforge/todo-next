@@ -4,6 +4,7 @@
     "paths": {
       "@/pages/*": ["pages/*"],
       "@/styles/*": ["styles/*"],
+      "@/theme/*": ["src/theme/*"],
       "@/utils/*": ["src/utils/*"]
     }
   }
