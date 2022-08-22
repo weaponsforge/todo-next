@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import imageLoader from '@/utils/image/loader'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
@@ -15,6 +16,14 @@ export default function Home() {
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
+
+        <Image
+          src="images/mtg_enamel_red.png"
+          alt="red"
+          width={150}
+          height={150}
+          loader={imageLoader}
+        />
 
         <p className={styles.description}>
           Get started by editing{' '}
@@ -58,10 +67,6 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
         </a>
       </footer>
     </div>
