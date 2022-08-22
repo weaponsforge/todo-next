@@ -41,10 +41,15 @@ module.exports.updateTodo = async (req, res, next) => {
 
 // Delete a Todo document
 module.exports.deleteTodo = async (req, res, next) => {
-  const { id } = req.body
+  const { id } = req.params
 
   try {
     const doc = await Todo.deletetodo(id)
+
+    if (doc === null || doc === undefined) {
+      return res.status(500).send('Did not find a matching document.')
+    }
+
     return res.status(200).send(doc)
   } catch (err) {
     return res.status(500).send(err.message)

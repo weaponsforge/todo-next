@@ -32,8 +32,7 @@ class Todo {
    * @returns {Object} Updated Todo
    */
   async updatetodo (params) {
-    const id = params.id
-    const keys = ['title', 'description', 'content']
+    const keys = ['id', 'title', 'description', 'content']
 
     const data = keys.reduce((acc, item) => {
       if (params[item] !== undefined) {
@@ -45,7 +44,7 @@ class Todo {
 
     try {
       const result = await TodoSchema.findOneAndUpdate(
-        { _id: id },
+        { _id: data.id },
         data,
         { returnOriginal: false }
       )
@@ -63,7 +62,7 @@ class Todo {
    */
   async deletetodo (id) {
     try {
-      return await TodoSchema.findOneAndDelete(id)
+      return await TodoSchema.findByIdAndDelete(id)
     } catch (err) {
       throw new Error(err.message)
     }
