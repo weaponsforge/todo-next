@@ -9,6 +9,10 @@ const TodoSchema = new Schema({
   description: {
     required: true,
     type: String
+  },
+  content: {
+    required: true,
+    type: String
   }
 },
 {
