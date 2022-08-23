@@ -7,8 +7,8 @@ const nextConfig = {
     loader: 'custom'
   },
   eslint: {
-    dirs: ['pages', 'styles', 'src']
-  },
+    dirs: ['components', 'pages', 'src', 'store', 'styles']
+  }
 }
 
 module.exports = nextConfig
