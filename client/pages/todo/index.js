@@ -3,7 +3,7 @@ import Todo from '@/components/todo'
 
 // Redux
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchTodos } from '@/store/todo/todoSlice'
+import { fetchTodos, fetchTodo } from '@/store/todo/todoSlice'
 
 function TodoContainer () {
   const dispatch = useDispatch()
@@ -18,8 +18,14 @@ function TodoContainer () {
     }
   }, [dispatch, ids.length])
 
+  const handleGetTodo = (id) => {
+    dispatch(fetchTodo(id))
+  }
+
   return (
-    <Todo />
+    <Todo
+      getTodo={handleGetTodo}
+    />
   )
 }
 
