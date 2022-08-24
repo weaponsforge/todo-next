@@ -25,7 +25,6 @@ const todoSlice = createSlice({
   name: 'todos',
   initialState: todosAdapter.getInitialState({
     loading: false,
-    initialLoad: false,
     error: ''
   }),
   reducers: {
@@ -50,7 +49,6 @@ const todoSlice = createSlice({
     builder.addCase(fetchTodos.rejected, (state, action) => {
       const { message } = action.error
       state.loading = false
-      state.initialLoad = true
       state.error = message
     })
   }
