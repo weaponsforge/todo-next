@@ -2,19 +2,21 @@ import { useEffect, useRef } from 'react'
 import Todo from '@/components/todo'
 
 // Redux
-import { useDispatch } from 'react-redux'
-import { fetchTodos } from './todoSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchTodos } from '@/store/todo/todoSlice'
 
 function TodoContainer () {
   const dispatch = useDispatch()
+  const ids = useSelector((state) => state.todos.ids)
   const mounted = useRef(null)
 
   useEffect(() => {
-    if (mounted.current === null) {
+    // Load the Todo list only once (initial load)
+    if (mounted.current === null && ids.length === 0) {
       mounted.current = true
       dispatch(fetchTodos())
     }
-  }, [dispatch])
+  }, [dispatch, ids.length])
 
   return (
     <Todo />

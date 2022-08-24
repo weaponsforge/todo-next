@@ -23,7 +23,10 @@ export const todosAdapter = createEntityAdapter({
 
 const todoSlice = createSlice({
   name: 'todos',
-  initialState: todosAdapter.getInitialState({ loading: false, error: '' }),
+  initialState: todosAdapter.getInitialState({
+    loading: false,
+    error: ''
+  }),
   reducers: {
     todosLoading (state) {
       state.loading = true
