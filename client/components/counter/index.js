@@ -1,5 +1,8 @@
+import Link from 'next/link'
+import { useSelector } from 'react-redux'
+
+// MUI
 import Box from '@mui/material/Box'
-import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 import Image from 'next/image'
 import imageLoader from '@/utils/image/loader'
@@ -8,31 +11,32 @@ import styles from './styles'
 // Icons
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline'
+import SimpleContainer from '@/layout/simplecontainer'
 
 // Layout
 import AppCard from '@/components/layout/appcard'
+import AppContainer from '@/components/layout/appcontainer'
 import AppIconButton from '@/layout/appiconbtn'
-
-import { useSelector } from 'react-redux'
 
 function Counter (props) {
   const { handleIncrement, handleDecrement } = props
   const count = useSelector((state) => state.counter.value)
 
   return (
-    <Container maxWidth='sm' sx={styles.container}>
+    <AppContainer maxWidth='sm'>
       <AppCard>
-        <Typography variant='h4'>
-          Counter Sample
-        </Typography>
+        <Typography variant='h4'>Redux Counter</Typography>
+        <Typography variant='subtitle'>A Synchronous Example</Typography>
 
-        <Image
-          src="images/mtg_enamel_red.png"
-          alt="red"
-          width={80}
-          height={80}
-          loader={imageLoader}
-        />
+        <Box sx={styles.divContainer}>
+          <Image
+            src="images/mtg_enamel_red.png"
+            alt="red"
+            width={80}
+            height={80}
+            loader={imageLoader}
+          />
+        </Box>
 
         <Box sx={styles.counterContainer}>
           <AppIconButton onClick={handleDecrement}>
@@ -46,7 +50,11 @@ function Counter (props) {
           </AppIconButton>
         </Box>
       </AppCard>
-    </Container>
+
+      <SimpleContainer>
+        <Link href='/'>Home</Link>
+      </SimpleContainer>
+    </AppContainer>
   )
 }
 

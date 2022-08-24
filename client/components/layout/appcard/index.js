@@ -5,6 +5,7 @@ const AppCard = styled(Card)(({ theme }) => ({
   width: '100%',
   padding: theme.spacing(2),
   borderRadius: theme.spacing(1),
+  marginTop: theme.spacing(3),
   boxShadow: `
     rgb(255 255 255) 0px 0px 0px 0px,
     rgb(0 0 0 / 5%) 0px 0px 0px 1px,

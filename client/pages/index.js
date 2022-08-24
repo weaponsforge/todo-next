@@ -27,7 +27,8 @@ export default function Home() {
         />
 
         <br />
-        <Link href='/counter'>Redux Counter Sample</Link>
+        <Link href='/counter'>Redux (Synchronous) Counter Sample</Link>
+        <Link href='/todo'>Redux (Async) Todo Example</Link>
       </main>
 
       <footer className={styles.footer}>
