@@ -15,7 +15,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 
-if (process.env.ALLOW_CORS === 1) {
+if (process.env.ALLOW_CORS === '1') {
   app.use(cors(corsOptions))
 }
 

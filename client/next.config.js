@@ -7,8 +7,11 @@ const nextConfig = {
     loader: 'custom'
   },
   eslint: {
-    dirs: ['pages', 'styles', 'src']
+    dirs: ['components', 'pages', 'src', 'store', 'styles']
   },
+  env: {
+    BASE_API_URL: process.env.BASE_API_URL
+  }
 }
 
 module.exports = nextConfig
