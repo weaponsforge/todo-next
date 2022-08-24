@@ -26,7 +26,7 @@ function ViewTodo () {
       <AppCard>
         <h1>Todo Item</h1>
 
-        <Box sx={{ height: 400, width: '100%', textAlign: 'left' }}>
+        <Box sx={{ minHeight: 400, width: '100%', textAlign: 'left' }}>
           {(loading === 'pending')
             ? <AppLoading />
             : (error !== '')
@@ -34,13 +34,15 @@ function ViewTodo () {
                 {error}
               </Typography>
               : <Box>
-                {Object.keys(titles).map((key, index) => (
+                {Object.keys(titles).map((field, index) => (
                   <Box sx={{ display: 'flex' }} key={index}>
-                    <Typography variant='subtitle2'>{titles[key]}: &nbsp;</Typography>
+                    <Typography variant='subtitle2'>
+                      {titles[field]}: &nbsp;
+                    </Typography>
                     <span>
-                      {['createdAt', 'updatedAt'].includes(key)
-                        ? new Date(todo[key]).toDateString()
-                        : todo[key]
+                      {['createdAt', 'updatedAt'].includes(field)
+                        ? new Date(todo[field]).toDateString()
+                        : todo[field]
                       }
                     </span>
                   </Box>

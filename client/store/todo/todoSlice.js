@@ -44,7 +44,7 @@ const todoSlice = createSlice({
     loading: 'idle',
     currentRequestId: null,
     error: '',
-    todo: null
+    todo: {}
   }),
   reducers: {
     todosLoading (state, action) {
@@ -81,7 +81,7 @@ const todoSlice = createSlice({
         state.loading = 'pending'
         state.currentRequestId = action.meta.requestId
         state.error = ''
-        state.todo = null
+        state.todo = {}
       }
     })
 
