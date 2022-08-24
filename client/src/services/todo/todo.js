@@ -9,6 +9,11 @@ class Todo {
     const result = await axios.get(`${this.BASE_API_URL}/todos`)
     return result.data
   }
+
+  async getTodo (id) {
+    const result = await axios.get(`${this.BASE_API_URL}/todo/${id}`)
+    return result.data
+  }
 }
 
 export default Todo

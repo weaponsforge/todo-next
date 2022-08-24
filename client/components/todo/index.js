@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 // MUI
 import Box from '@mui/material/Box'
@@ -13,6 +14,8 @@ import SimpleContainer from '@/layout/simplecontainer'
 
 function Todo () {
   const todos = useSelector((state) => state.todos)
+  const router = useRouter()
+
   const columns = [
     { field: '_id', headerName: 'ID', width: 200 },
     { field: 'title', headerName: 'Title', width: 280 },
@@ -38,7 +41,7 @@ function Todo () {
             rowsPerPageOptions={[5]}
             checkboxSelection
             disableSelectionOnClick
-            loading={todos.loading}
+            loading={todos.loading === 'pending'}
             rowHeight={48}
             initialState={{
               columns: {
@@ -56,6 +59,9 @@ function Todo () {
                   }
                 </Box>
               )
+            }}
+            onRowClick={({ id }) => {
+              router.push(`/todo/${id}`)
             }}
           />
         </Box>
