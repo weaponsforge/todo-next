@@ -3,7 +3,7 @@ import Todo from '@/components/todo'
 
 // Redux
 import { useDispatch } from 'react-redux'
-import { fetchTodos } from './todoSlice'
+import { fetchTodos } from '@/store/todo/todoSlice'
 
 function TodoContainer () {
   const dispatch = useDispatch()

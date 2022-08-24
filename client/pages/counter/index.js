@@ -1,7 +1,7 @@
 import Counter from '@/components/counter'
 
 import { useDispatch } from 'react-redux'
-import { decrement, increment } from './counterSlice'
+import { decrement, increment } from '@/store/counter/counterSlice'
 
 function CounterContainer () {
   const dispatch = useDispatch()
