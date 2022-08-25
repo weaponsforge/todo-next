@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/router'
 import ViewTodo from '@/components/todo/view'
 
@@ -8,6 +8,7 @@ import { unwrapResult } from '@reduxjs/toolkit'
 import { fetchTodo, deleteExistingTodo } from '@/store/todo/todoSlice'
 
 function ViewTodoContainer () {
+  const [isDeleted, setIsDeleted] = useState(false)
   const dispatch = useDispatch()
   const router = useRouter()
   const mounted = useRef(null)
@@ -30,12 +31,13 @@ function ViewTodoContainer () {
     dispatch(deleteExistingTodo(router.query.id))
       .then(unwrapResult)
       .then(() => {
-        router.push('/todo')
+        setIsDeleted(true)
       })
   }
 
   return (
     <ViewTodo
+      isDeleted={isDeleted}
       onBackClick={handleBackPress}
       onDeleteClick={handleDelete}
     />

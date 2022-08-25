@@ -89,6 +89,7 @@ const todoSlice = createSlice({
       state.loading = 'idle'
       state.currentRequestId = action.payload || undefined
       state.error = ''
+      state.todo = {}
     },
     todosReceived (state, action) {
       todosAdapter.setAll(state, action.payload)
@@ -103,6 +104,7 @@ const todoSlice = createSlice({
     builder.addCase(fetchTodos.fulfilled, (state, { payload }) => {
       state.loading = 'idle'
       state.currentRequestId = undefined
+      state.todo = {}
       todosAdapter.setAll(state, payload)
       // todosAdapter.upsertMany(state, { ...payload })
     })
@@ -112,6 +114,7 @@ const todoSlice = createSlice({
       state.loading = 'idle'
       state.error = message
       state.currentRequestId = undefined
+      state.todo = {}
     })
 
     // Fetch a single Todo
@@ -173,7 +176,7 @@ const todoSlice = createSlice({
       ) {
         state.loading = 'idle'
         state.currentRequestId = undefined
-        state.todo = action.payload
+        state.todo = {}
       }
     })
 

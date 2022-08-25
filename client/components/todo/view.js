@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import Link from 'next/link'
 
@@ -13,13 +14,17 @@ import styles from './styles'
 import AppContainer from '@/components/layout/appcontainer'
 import AppCard from '@/layout/appcard'
 import AppLoading from '@/layout/apploading'
+import AppModal from '@/layout/appmodal'
 import SimpleContainer from '@/layout/simplecontainer'
 
 function ViewTodo ({
+  isDeleted,
   onBackClick,
   onDeleteClick
 }) {
+  const [isModalOpen, setModalOpen] = useState(false)
   const { todo, loading, error } = useSelector((state) => state.todos)
+
   const titles = {
     title: 'Title',
     description: 'Description',
@@ -30,6 +35,27 @@ function ViewTodo ({
 
   return (
     <AppContainer maxWidth='sm'>
+      <AppModal
+        isOpen={isModalOpen}
+        titleText='Delete Todo'
+        loading={loading === 'pending'}
+        contentText={(isDeleted) ? 'The Todo was successfully deleted' : 'Do you want to delete this Todo?'}
+        handleCancelCB={() => {
+          if (isDeleted) {
+            onBackClick()
+          } else {
+            setModalOpen(false)
+          }
+        }}
+        handleConfirmCB={() => {
+          if (isDeleted) {
+            onBackClick()
+          } else {
+            onDeleteClick()
+          }
+        }}
+      />
+
       <AppCard>
         <h1>Todo Item</h1>
 
@@ -76,7 +102,10 @@ function ViewTodo ({
             variant='outlined'
             disabled={loading === 'pending'}
           >
-            <Button onClick={onDeleteClick}>Delete</Button>
+            <Button
+              onClick={() => setModalOpen(true)}
+            >Delete
+            </Button>
             <Button>Edit</Button>
             <Button
               onClick={onBackClick}
