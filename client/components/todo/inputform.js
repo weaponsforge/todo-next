@@ -49,7 +49,7 @@ function TodoInputForm ({
       />
 
       <AppCard>
-        <h1>{content?.title || content}</h1>
+        <h1>{content?.title || 'Create a Todo'}</h1>
 
         <Box sx={styles.inputContainer}>
           <TextField
