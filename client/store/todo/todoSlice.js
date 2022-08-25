@@ -4,7 +4,7 @@ import {
   createSlice,
 } from '@reduxjs/toolkit'
 
-import { listTodos, getTodo, createTodo } from '@/services/todo'
+import { listTodos, getTodo, createTodo, deleteTodo } from '@/services/todo'
 
 // Async thunks
 
@@ -49,6 +49,22 @@ export const createNewTodo = createAsyncThunk(
     return response
   })
 
+// Delete an existing Todo
+export const deleteExistingTodo = createAsyncThunk(
+  'todos/delete',
+  async(todoId, thunkAPI) => {
+    const { loading } = thunkAPI.getState().todos
+
+    // Delete a Todo if there are no previous create requests
+    if (loading === 'pending') {
+      return
+    }
+
+    thunkAPI.dispatch(todosLoading(thunkAPI.requestId))
+    const response = await deleteTodo(todoId)
+    return response
+  })
+
 // Entity adapter - redux state of this slice
 // By default, `createEntityAdapter` gives you `{ ids: [], entities: {} }`.
 export const todosAdapter = createEntityAdapter({
@@ -87,7 +103,8 @@ const todoSlice = createSlice({
     builder.addCase(fetchTodos.fulfilled, (state, { payload }) => {
       state.loading = 'idle'
       state.currentRequestId = undefined
-      todosAdapter.upsertMany(state, { ...payload })
+      todosAdapter.setAll(state, payload)
+      // todosAdapter.upsertMany(state, { ...payload })
     })
 
     builder.addCase(fetchTodos.rejected, (state, action) => {
@@ -140,6 +157,27 @@ const todoSlice = createSlice({
     })
 
     builder.addCase(createNewTodo.rejected, (state, action) => {
+      const { message } = action.error
+      state.loading = 'idle'
+      state.error = message
+      state.currentRequestId = undefined
+      state.todo = {}
+    })
+
+    // Handle the delete Todo events and state
+    builder.addCase(deleteExistingTodo.fulfilled, (state, action) => {
+      const { requestId } = action.meta
+      if (
+        state.loading === 'pending' &&
+        state.currentRequestId === requestId
+      ) {
+        state.loading = 'idle'
+        state.currentRequestId = undefined
+        state.todo = action.payload
+      }
+    })
+
+    builder.addCase(deleteExistingTodo.rejected, (state, action) => {
       const { message } = action.error
       state.loading = 'idle'
       state.error = message

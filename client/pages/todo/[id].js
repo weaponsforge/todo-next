@@ -4,7 +4,8 @@ import ViewTodo from '@/components/todo/view'
 
 // Redux
 import { useDispatch } from 'react-redux'
-import { fetchTodo } from '@/store/todo/todoSlice'
+import { unwrapResult } from '@reduxjs/toolkit'
+import { fetchTodo, deleteExistingTodo } from '@/store/todo/todoSlice'
 
 function ViewTodoContainer () {
   const dispatch = useDispatch()
@@ -21,8 +22,23 @@ function ViewTodoContainer () {
     }
   }, [dispatch, router.query.id])
 
+  const handleBackPress = () => {
+    router.push('/todo')
+  }
+
+  const handleDelete = () => {
+    dispatch(deleteExistingTodo(router.query.id))
+      .then(unwrapResult)
+      .then(() => {
+        router.push('/todo')
+      })
+  }
+
   return (
-    <ViewTodo />
+    <ViewTodo
+      onBackClick={handleBackPress}
+      onDeleteClick={handleDelete}
+    />
   )
 }
 

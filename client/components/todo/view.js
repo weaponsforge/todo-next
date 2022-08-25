@@ -3,7 +3,11 @@ import Link from 'next/link'
 
 // MUI
 import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import ButtonGroup  from '@mui/material/ButtonGroup'
+import CardActions  from '@mui/material/CardActions'
 import Typography from '@mui/material/Typography'
+import styles from './styles'
 
 // Layout
 import AppContainer from '@/components/layout/appcontainer'
@@ -11,7 +15,10 @@ import AppCard from '@/layout/appcard'
 import AppLoading from '@/layout/apploading'
 import SimpleContainer from '@/layout/simplecontainer'
 
-function ViewTodo () {
+function ViewTodo ({
+  onBackClick,
+  onDeleteClick
+}) {
   const { todo, loading, error } = useSelector((state) => state.todos)
   const titles = {
     title: 'Title',
@@ -57,6 +64,27 @@ function ViewTodo () {
               </Box>
           }
         </Box>
+
+        <Box sx={{ textAlign: 'left', color: 'red' }}>
+          <Typography variant='caption'>
+            {error || '' || <br />}
+          </Typography>
+        </Box>
+
+        <CardActions sx={styles.buttons}>
+          <ButtonGroup
+            variant='outlined'
+            disabled={loading === 'pending'}
+          >
+            <Button onClick={onDeleteClick}>Delete</Button>
+            <Button>Edit</Button>
+            <Button
+              onClick={onBackClick}
+              variant='contained'>
+              Back
+            </Button>
+          </ButtonGroup>
+        </CardActions>
       </AppCard>
 
       <SimpleContainer>
