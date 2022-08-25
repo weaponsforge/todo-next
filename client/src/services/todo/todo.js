@@ -24,6 +24,11 @@ class Todo {
 
     return result.data
   }
+
+  async deleteTodo (id) {
+    const result = await axios.delete(`${this.BASE_API_URL}/todo/${id}`)
+    return result.data
+  }
 }
 
 export default Todo

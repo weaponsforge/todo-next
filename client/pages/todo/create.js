@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { unwrapResult } from '@reduxjs/toolkit'
 import { useRouter } from 'next/router'
 import { createNewTodo, todosReset } from '@/store/todo/todoSlice'
 
@@ -40,10 +39,6 @@ function CreateTodoContainer () {
     }
 
     dispatch(createNewTodo(state))
-      .then(unwrapResult)
-      .then((todo) => {
-        router.push(`/todo/${todo._id}`)
-      })
   }
 
   const handleCancel = () => {
@@ -51,7 +46,7 @@ function CreateTodoContainer () {
   }
 
   const handleReset = () => {
-    resetErrorsMessages()
+    dispatch(todosReset())
     setState(defaultState)
   }
 
@@ -59,6 +54,10 @@ function CreateTodoContainer () {
     const { id } = e.target
     setState({ ...state, [id]: '' })
     resetErrorsMessages()
+  }
+
+  const handleRedirect = (todoId) => {
+    router.push(`/todo/${todoId}`)
   }
 
   return (
@@ -70,6 +69,7 @@ function CreateTodoContainer () {
       onSaveClick={handleSave}
       onResetClick={handleReset}
       onCancelClick={handleCancel}
+      onRedirectClick={handleRedirect}
     />
   )
 }
