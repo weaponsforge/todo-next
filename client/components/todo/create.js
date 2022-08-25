@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useSelector } from 'react-redux'
 
@@ -13,6 +14,7 @@ import styles from './styles'
 // Layout
 import AppContainer from '@/components/layout/appcontainer'
 import AppCard from '@/layout/appcard'
+import AppModal from '@/layout/appmodal'
 import SimpleContainer from '@/layout/simplecontainer'
 
 function CreateTodo ({
@@ -22,12 +24,28 @@ function CreateTodo ({
   onTextClick,
   onSaveClick,
   onResetClick,
-  onCancelClick
+  onCancelClick,
+  onRedirectClick
 }) {
-  const { loading, error } = useSelector((state) => state.todos)
+  const [isModalOpen, setModalOpen] = useState(false)
+  const { todo, loading, error } = useSelector((state) => state.todos)
+
+  useEffect(() => {
+    if (Object.keys(todo).length > 0 && loading === 'idle') {
+      setModalOpen(true)
+    }
+  }, [todo, loading])
 
   return (
     <AppContainer maxWidth='sm'>
+      <AppModal
+        isOpen={isModalOpen}
+        titleText='Success!'
+        contentText='Successfully created a new Todo.'
+        handleCancelCB={() => setModalOpen(false)}
+        handleConfirmCB={() => onRedirectClick(todo._id)}
+      />
+
       <AppCard>
         <h1>Create a Todo</h1>
 
