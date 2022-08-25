@@ -6,6 +6,7 @@ import { styled } from '@mui/material/styles'
 const FullSizeBox = styled(Box)(() => ({
   display: 'grid',
   width: '100%',
+  minHeight: '400px',
   height: '100%',
   placeContent: 'center',
   border: '1px solid rgba(224, 224, 224, 1)',
