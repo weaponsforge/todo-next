@@ -17,9 +17,11 @@ import AppCard from '@/layout/appcard'
 import AppModal from '@/layout/appmodal'
 import SimpleContainer from '@/layout/simplecontainer'
 
-function CreateTodo ({
+function TodoInputForm ({
   state,
   inputStatus,
+  processFinished,
+  content,
   onTextChange,
   onTextClick,
   onSaveClick,
@@ -31,23 +33,23 @@ function CreateTodo ({
   const { todo, loading, error } = useSelector((state) => state.todos)
 
   useEffect(() => {
-    if (Object.keys(todo).length > 0 && loading === 'idle') {
+    if (processFinished) {
       setModalOpen(true)
     }
-  }, [todo, loading])
+  }, [processFinished])
 
   return (
     <AppContainer maxWidth='sm'>
       <AppModal
         isOpen={isModalOpen}
         titleText='Success!'
-        contentText='Successfully created a new Todo.'
+        contentText='Successfully saved the Todo data.'
         handleCancelCB={() => setModalOpen(false)}
         handleConfirmCB={() => onRedirectClick(todo._id)}
       />
 
       <AppCard>
-        <h1>Create a Todo</h1>
+        <h1>{content?.title || 'Create a Todo'}</h1>
 
         <Box sx={styles.inputContainer}>
           <TextField
@@ -117,4 +119,4 @@ function CreateTodo ({
   )
 }
 
-export default CreateTodo
+export default TodoInputForm
