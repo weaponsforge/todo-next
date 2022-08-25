@@ -6,10 +6,12 @@ const listTodos = TODO.listTodos.bind(TODO)
 const getTodo = TODO.getTodo.bind(TODO)
 const createTodo = TODO.createTodo.bind(TODO)
 const deleteTodo = TODO.deleteTodo.bind(TODO)
+const updateTodo = TODO.updateTodo.bind(TODO)
 
 export {
   listTodos,
   getTodo,
   createTodo,
-  deleteTodo
+  deleteTodo,
+  updateTodo
 }

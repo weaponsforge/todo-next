@@ -35,11 +35,16 @@ function ViewTodoContainer () {
       })
   }
 
+  const handleEditPress = () => {
+    router.push(`/todo/edit/${router.query.id}`)
+  }
+
   return (
     <ViewTodo
       isDeleted={isDeleted}
       onBackClick={handleBackPress}
       onDeleteClick={handleDelete}
+      handleEditPress={handleEditPress}
     />
   )
 }

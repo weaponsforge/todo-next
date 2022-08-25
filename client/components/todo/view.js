@@ -20,7 +20,8 @@ import SimpleContainer from '@/layout/simplecontainer'
 function ViewTodo ({
   isDeleted,
   onBackClick,
-  onDeleteClick
+  onDeleteClick,
+  handleEditPress
 }) {
   const [isModalOpen, setModalOpen] = useState(false)
   const { todo, loading, error } = useSelector((state) => state.todos)
@@ -106,7 +107,9 @@ function ViewTodo ({
               onClick={() => setModalOpen(true)}
             >Delete
             </Button>
-            <Button>Edit</Button>
+            <Button onClick={handleEditPress}>
+              Edit
+            </Button>
             <Button
               onClick={onBackClick}
               variant='contained'>

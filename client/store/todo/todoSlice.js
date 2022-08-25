@@ -4,7 +4,7 @@ import {
   createSlice,
 } from '@reduxjs/toolkit'
 
-import { listTodos, getTodo, createTodo, deleteTodo } from '@/services/todo'
+import { listTodos, getTodo, createTodo, deleteTodo, updateTodo } from '@/services/todo'
 
 // Async thunks
 
@@ -64,6 +64,22 @@ export const deleteExistingTodo = createAsyncThunk(
     const response = await deleteTodo(todoId)
     return response
   })
+
+// Update an existing Todo
+export const updateExistingTodo = createAsyncThunk(
+  'todos/update',
+  async(todo, thunkAPI) => {
+    const { loading } = thunkAPI.getState().todos
+
+    if (loading === 'pending') {
+      return
+    }
+
+    thunkAPI.dispatch(todosLoading(thunkAPI.requestId))
+    const response = await updateTodo(todo)
+    return response
+  }
+)
 
 // Entity adapter - redux state of this slice
 // By default, `createEntityAdapter` gives you `{ ids: [], entities: {} }`.
@@ -181,6 +197,27 @@ const todoSlice = createSlice({
     })
 
     builder.addCase(deleteExistingTodo.rejected, (state, action) => {
+      const { message } = action.error
+      state.loading = 'idle'
+      state.error = message
+      state.currentRequestId = undefined
+      state.todo = {}
+    })
+
+    // Handle the update existing Todo events and state
+    builder.addCase(updateExistingTodo.fulfilled, (state, action) => {
+      const { requestId } = action.meta
+      if (
+        state.loading === 'pending' &&
+        state.currentRequestId === requestId
+      ) {
+        state.loading = 'idle'
+        state.currentRequestId = undefined
+        state.todo = action.payload
+      }
+    })
+
+    builder.addCase(updateExistingTodo.rejected, (state, action) => {
       const { message } = action.error
       state.loading = 'idle'
       state.error = message
