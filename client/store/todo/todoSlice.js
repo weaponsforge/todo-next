@@ -4,7 +4,7 @@ import {
   createSlice,
 } from '@reduxjs/toolkit'
 
-import { listTodos, getTodo } from '@/services/todo'
+import { listTodos, getTodo, createTodo } from '@/services/todo'
 
 // Async thunks
 
@@ -18,6 +18,7 @@ export const fetchTodos = createAsyncThunk('todos/list', async(_, thunkAPI) => {
   return response
 })
 
+// Fetch a single Todo
 export const fetchTodo = createAsyncThunk(
   'todos/get',
   async(postId, { getState, requestId }) => {
@@ -29,6 +30,22 @@ export const fetchTodo = createAsyncThunk(
     }
 
     const response = await getTodo(postId)
+    return response
+  })
+
+// Create a new Todo
+export const createNewTodo = createAsyncThunk(
+  'todos/create',
+  async(todo, thunkAPI) => {
+    const { loading } = thunkAPI.getState().todos
+
+    // Create a Todo if there are no previous create requests
+    if (loading === 'pending') {
+      return
+    }
+
+    thunkAPI.dispatch(todosLoading(thunkAPI.requestId))
+    const response = await createTodo(todo)
     return response
   })
 
@@ -49,6 +66,11 @@ const todoSlice = createSlice({
   reducers: {
     todosLoading (state, action) {
       state.loading = 'pending'
+      state.currentRequestId = action.payload || undefined
+      state.error = ''
+    },
+    todosReset (state, action) {
+      state.loading = 'idle'
       state.currentRequestId = action.payload || undefined
       state.error = ''
     },
@@ -103,12 +125,34 @@ const todoSlice = createSlice({
       state.error = message
       state.currentRequestId = undefined
     })
+
+    // Handle the create new Todo events and state
+    builder.addCase(createNewTodo.fulfilled, (state, action) => {
+      const { requestId } = action.meta
+      if (
+        state.loading === 'pending' &&
+        state.currentRequestId === requestId
+      ) {
+        state.loading = 'idle'
+        state.currentRequestId = undefined
+        state.todo = action.payload
+      }
+    })
+
+    builder.addCase(createNewTodo.rejected, (state, action) => {
+      const { message } = action.error
+      state.loading = 'idle'
+      state.error = message
+      state.currentRequestId = undefined
+      state.todo = {}
+    })
   }
 })
 
 export const {
   todosLoading,
-  todosReceived
+  todosReceived,
+  todosReset
 } = todoSlice.actions
 
 export default todoSlice.reducer
