@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { unwrapResult } from '@reduxjs/toolkit'
 import { useRouter } from 'next/router'
-import { updateExistingTodo, todosReset, fetchTodo } from '@/store/todo/todoSlice'
+import { updateExistingTodo, todosReset, fetchTodo } from '@/store/todo/todoThunks'
 
 import TodoInputForm from '@/components/todo/inputform'
 
