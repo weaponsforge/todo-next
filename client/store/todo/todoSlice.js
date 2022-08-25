@@ -172,6 +172,8 @@ const todoSlice = createSlice({
         state.loading = 'idle'
         state.currentRequestId = undefined
         state.todo = action.payload
+        // Insert the new Todo to the collection of Todos
+        todosAdapter.addOne(state, action.payload)
       }
     })
 
@@ -193,6 +195,7 @@ const todoSlice = createSlice({
         state.loading = 'idle'
         state.currentRequestId = undefined
         state.todo = {}
+        todosAdapter.removeOne(state, action.payload._id)
       }
     })
 
