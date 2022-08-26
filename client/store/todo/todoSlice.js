@@ -143,6 +143,7 @@ const todoSlice = createSlice({
         state.loading = 'idle'
         state.currentRequestId = undefined
         state.todo = action.payload
+        todosAdapter.setOne(state, action.payload)
       }
     })
 
