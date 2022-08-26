@@ -126,7 +126,7 @@ TodoInputForm.propTypes = {
   /** Indicates if an async process on the container is finished */
   processFinished: PropTypes.bool,
   /** Page title */
-  title: PropTypes.object,
+  title: PropTypes.string,
   /** Updates the local Todo state */
   onTextChange: PropTypes.func,
   /** Clears the input on click */
