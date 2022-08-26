@@ -71,10 +71,7 @@ function CreateTodoContainer () {
       state={state}
       inputStatus={inputStatus}
       processFinished={processFinished}
-      content={{
-        title: 'Create a Todo',
-        mode: 'create'
-      }}
+      title='Create a Todo'
       onTextChange={handleInputChange}
       onTextClick={handleInputClick}
       onSaveClick={handleSave}

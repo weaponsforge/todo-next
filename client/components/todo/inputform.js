@@ -1,5 +1,5 @@
+import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
-import Link from 'next/link'
 import { useSelector } from 'react-redux'
 
 // MUI
@@ -12,16 +12,14 @@ import Typography from '@mui/material/Typography'
 import styles from './styles'
 
 // Layout
-import AppContainer from '@/components/layout/appcontainer'
-import AppCard from '@/layout/appcard'
 import AppModal from '@/layout/appmodal'
-import SimpleContainer from '@/layout/simplecontainer'
+import AppFrame from '@/layout/appframe'
 
 function TodoInputForm ({
   state,
   inputStatus,
   processFinished,
-  content,
+  title,
   onTextChange,
   onTextClick,
   onSaveClick,
@@ -32,6 +30,11 @@ function TodoInputForm ({
   const [isModalOpen, setModalOpen] = useState(false)
   const { todo, loading, error } = useSelector((state) => state.todos)
 
+  const navigation = [
+    { href: '/', name: 'Home' },
+    { href: '/todo', name: 'Todos' },
+  ]
+
   useEffect(() => {
     if (processFinished) {
       setModalOpen(true)
@@ -39,7 +42,10 @@ function TodoInputForm ({
   }, [processFinished])
 
   return (
-    <AppContainer maxWidth='sm'>
+    <AppFrame
+      maxWidth='sm'
+      navigation={navigation}
+    >
       <AppModal
         isOpen={isModalOpen}
         titleText='Success!'
@@ -48,75 +54,91 @@ function TodoInputForm ({
         handleConfirmCB={() => onRedirectClick(todo._id)}
       />
 
-      <AppCard>
-        <h1>{content?.title || 'Create a Todo'}</h1>
+      <h1>{title || 'Create a Todo'}</h1>
 
-        <Box sx={styles.inputContainer}>
-          <TextField
-            id='title'
-            label='Title'
-            placeholder='Enter a title'
-            variant='outlined'
-            disabled={loading === 'pending'}
-            value={state.title}
-            onChange={onTextChange}
-            onClick={onTextClick}
-          />
+      <Box sx={styles.inputContainer}>
+        <TextField
+          id='title'
+          label='Title'
+          placeholder='Enter a title'
+          variant='outlined'
+          disabled={loading === 'pending'}
+          value={state.title}
+          onChange={onTextChange}
+          onClick={onTextClick}
+        />
 
-          <TextField
-            id='description'
-            label='Description'
-            placeholder='Enter a description'
-            variant='outlined'
-            disabled={loading === 'pending'}
-            value={state.description}
-            onChange={onTextChange}
-            onClick={onTextClick}
-          />
+        <TextField
+          id='description'
+          label='Description'
+          placeholder='Enter a description'
+          variant='outlined'
+          disabled={loading === 'pending'}
+          value={state.description}
+          onChange={onTextChange}
+          onClick={onTextClick}
+        />
 
-          <TextField
-            id='content'
-            label='Content'
-            placeholder='Enter content'
-            variant='outlined'
-            disabled={loading === 'pending'}
-            value={state.content}
-            onChange={onTextChange}
-            onClick={onTextClick}
-            multiline
-            rows={9}
-          />
-        </Box>
+        <TextField
+          id='content'
+          label='Content'
+          placeholder='Enter content'
+          variant='outlined'
+          disabled={loading === 'pending'}
+          value={state.content}
+          onChange={onTextChange}
+          onClick={onTextClick}
+          multiline
+          rows={9}
+        />
+      </Box>
 
-        <Box sx={{ textAlign: 'left', color: 'red' }}>
-          <Typography variant='caption'>
-            {error || inputStatus || <br />}
-          </Typography>
-        </Box>
+      <Box sx={{ textAlign: 'left', color: 'red' }}>
+        <Typography variant='caption'>
+          {error || inputStatus || <br />}
+        </Typography>
+      </Box>
 
-        <CardActions sx={styles.buttons}>
-          <ButtonGroup
-            variant='outlined'
-            disabled={loading === 'pending'}
+      <CardActions sx={styles.buttons}>
+        <ButtonGroup
+          variant='outlined'
+          disabled={loading === 'pending'}
+        >
+          <Button onClick={onCancelClick}>Cancel</Button>
+          <Button onClick={onResetClick}>Clear</Button>
+          <Button
+            variant='contained'
+            onClick={onSaveClick}
           >
-            <Button onClick={onCancelClick}>Cancel</Button>
-            <Button onClick={onResetClick}>Clear</Button>
-            <Button
-              variant='contained'
-              onClick={onSaveClick}
-            >
               Save
-            </Button>
-          </ButtonGroup>
-        </CardActions>
-      </AppCard>
-
-      <SimpleContainer>
-        <Link href='/'>Home</Link>&nbsp; | &nbsp;
-        <Link href='/todo'>Todos</Link>
-      </SimpleContainer>
-    </AppContainer>
+          </Button>
+        </ButtonGroup>
+      </CardActions>
+    </AppFrame>
   )
+}
+
+TodoInputForm.propTypes = {
+  /** Todo local states */
+  state: PropTypes.object,
+  /** Input validation message */
+  inputStatus: PropTypes.string,
+  /** Indicates if an async process on the container is finished */
+  processFinished: PropTypes.bool,
+  /** Page title */
+  title: PropTypes.object,
+  /** Updates the local Todo state */
+  onTextChange: PropTypes.func,
+  /** Clears the input on click */
+  onTextClick: PropTypes.func,
+  /** Calls the save Todo method */
+  onSaveClick: PropTypes.func,
+  /** Clears the content of all input */
+  onResetClick: PropTypes.func,
+  /** Redirect back to the Todos list page */
+  onCancelClick: PropTypes.func,
+  /** Rediect back to the view Todo page */
+  onRedirectClick: PropTypes.func
 }
 
 export default TodoInputForm

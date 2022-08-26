@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import Link from 'next/link'
 import { useSelector } from 'react-redux'
 
@@ -56,6 +57,13 @@ function Counter (props) {
       </SimpleContainer>
     </AppContainer>
   )
+}
+
+Counter.propTypes = {
+  /** Increment the counter */
+  handleIncrement: PropTypes.func,
+  /** Decrement the counter */
+  handleDecrement: PropTypes.func
 }
 
 export default Counter
