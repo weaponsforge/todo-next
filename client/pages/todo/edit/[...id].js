@@ -28,12 +28,14 @@ function EditTodoContainer () {
   useEffect(() => {
     if (
       mounted.current === null &&
-      router.query.id !== undefined
+      router.query.id !== undefined &&
+      Object.keys(todo).length === 0
     ) {
+
       mounted.current = true
       dispatch(fetchTodo(router.query.id[0]))
     }
-  }, [dispatch, router.query.id])
+  }, [dispatch, router.query.id, todo])
 
   const resetErrorsMessages = () => {
     if (error !== '') {
@@ -88,10 +90,7 @@ function EditTodoContainer () {
       state={state}
       inputStatus={inputStatus}
       processFinished={processFinished}
-      content={{
-        title: 'Edit Todo',
-        mode: 'edit'
-      }}
+      title='Edit Todo'
       onTextChange={handleInputChange}
       onTextClick={handleInputClick}
       onSaveClick={handleSave}
