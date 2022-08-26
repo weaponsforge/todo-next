@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
@@ -18,7 +19,7 @@ function TodoInputForm ({
   state,
   inputStatus,
   processFinished,
-  content,
+  title,
   onTextChange,
   onTextClick,
   onSaveClick,
@@ -53,7 +54,7 @@ function TodoInputForm ({
         handleConfirmCB={() => onRedirectClick(todo._id)}
       />
 
-      <h1>{content?.title || 'Create a Todo'}</h1>
+      <h1>{title || 'Create a Todo'}</h1>
 
       <Box sx={styles.inputContainer}>
         <TextField
@@ -115,6 +116,29 @@ function TodoInputForm ({
       </CardActions>
     </AppFrame>
   )
+}
+
+TodoInputForm.propTypes = {
+  /** Todo local states */
+  state: PropTypes.object,
+  /** Input validation message */
+  inputStatus: PropTypes.string,
+  /** Indicates if an async process on the container is finished */
+  processFinished: PropTypes.bool,
+  /** Page title */
+  title: PropTypes.object,
+  /** Updates the local Todo state */
+  onTextChange: PropTypes.func,
+  /** Clears the input on click */
+  onTextClick: PropTypes.func,
+  /** Calls the save Todo method */
+  onSaveClick: PropTypes.func,
+  /** Clears the content of all input */
+  onResetClick: PropTypes.func,
+  /** Redirect back to the Todos list page */
+  onCancelClick: PropTypes.func,
+  /** Rediect back to the view Todo page */
+  onRedirectClick: PropTypes.func
 }
 
 export default TodoInputForm

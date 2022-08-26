@@ -90,10 +90,7 @@ function EditTodoContainer () {
       state={state}
       inputStatus={inputStatus}
       processFinished={processFinished}
-      content={{
-        title: 'Edit Todo',
-        mode: 'edit'
-      }}
+      title='Edit Todo'
       onTextChange={handleInputChange}
       onTextClick={handleInputClick}
       onSaveClick={handleSave}

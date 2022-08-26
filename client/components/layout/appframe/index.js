@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import PropTypes from 'prop-types'
 
 // Layout
 import AppContainer from '@/components/layout/appcontainer'
@@ -31,6 +32,15 @@ function AppFrame ({
       }
     </AppContainer>
   )
+}
+
+AppFrame.propTypes = {
+  /** React/DOM elements */
+  children: PropTypes.node,
+  /** Array of navigation links i.e, [{ href: '/', name: 'Home' },... ] */
+  navigation: PropTypes.array,
+  /** MUI maxWidth xs, sm, md, lg, xl */
+  maxWidth: PropTypes.string
 }
 
 export default AppFrame

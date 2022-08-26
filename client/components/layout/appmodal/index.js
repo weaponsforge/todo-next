@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
 import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
@@ -77,6 +78,22 @@ function AppModal ({
       </Dialog>
     </div>
   )
+}
+
+AppModal.propTypes = {
+  /** Toggle the modal display on/off */
+  isOpen: PropTypes.bool,
+  /** Modal window title */
+  titleText: PropTypes.string,
+  /** Modal content text */
+  contentText: PropTypes.string,
+  /** Indicates if the calling component is doing some async process.
+   * Disables buttons on the modal */
+  loading: PropTypes.bool,
+  /** Callback function for the cancel button */
+  handleCancelCB: PropTypes.func,
+  /** Callback function for the confirm button */
+  handleConfirmCB: PropTypes.func
 }
 
 export default AppModal

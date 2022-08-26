@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import Box from '@mui/material/Box'
 import CircularProgress from '@mui/material/CircularProgress'
 import Typography from '@mui/material/Typography'
@@ -24,6 +25,11 @@ function AppLoading ({ msgLoading = 'Loading...' }) {
       </Box>
     </FullSizeBox>
   )
+}
+
+AppLoading.propTypes = {
+  /** Loading message text */
+  msgLoading: PropTypes.string
 }
 
 export default AppLoading

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 
@@ -114,6 +115,17 @@ function ViewTodo ({
       </CardActions>
     </AppFrame>
   )
+}
+
+ViewTodo.propTypes = {
+  /** Indicates if the current Todo in display is deleted */
+  isDeleted: PropTypes.bool,
+  /** Redirect back to the Todos list page */
+  onBackClick: PropTypes.func,
+  /** Deletes the Todo in display */
+  onDeleteClick: PropTypes.func,
+  /** Redirect to the edit Todo page */
+  handleEditPress: PropTypes.func
 }
 
 export default ViewTodo
