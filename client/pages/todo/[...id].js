@@ -5,7 +5,7 @@ import ViewTodo from '@/components/todo/view'
 // Redux
 import { useDispatch } from 'react-redux'
 import { unwrapResult } from '@reduxjs/toolkit'
-import { fetchTodo, deleteExistingTodo } from '@/store/todo/todoSlice'
+import { fetchTodo, deleteExistingTodo } from '@/store/todo/todoThunks'
 
 function ViewTodoContainer () {
   const [isDeleted, setIsDeleted] = useState(false)
