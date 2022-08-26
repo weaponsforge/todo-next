@@ -96,12 +96,6 @@ function ViewTodo ({
         }
       </Box>
 
-      <Box sx={{ textAlign: 'left', color: 'red' }}>
-        <Typography variant='caption'>
-          {error || '' || <br />}
-        </Typography>
-      </Box>
-
       <CardActions sx={styles.buttons}>
         <ButtonGroup
           variant='outlined'
