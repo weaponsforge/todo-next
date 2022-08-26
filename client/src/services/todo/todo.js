@@ -29,6 +29,16 @@ class Todo {
     const result = await axios.delete(`${this.BASE_API_URL}/todo/${id}`)
     return result.data
   }
+
+  async updateTodo (todo) {
+    const result = await axios({
+      data: todo,
+      url: `${this.BASE_API_URL}/todo`,
+      method: 'PATCH'
+    })
+
+    return result.data
+  }
 }
 
 export default Todo

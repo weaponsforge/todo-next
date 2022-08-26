@@ -1,8 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { unwrapResult } from '@reduxjs/toolkit'
 import { useRouter } from 'next/router'
-import { createNewTodo, todosReset } from '@/store/todo/todoThunks'
+import { updateExistingTodo, todosReset, fetchTodo } from '@/store/todo/todoThunks'
 
 import TodoInputForm from '@/components/todo/inputform'
 
@@ -10,13 +10,30 @@ const defaultState = {
   title: '', description: '', content: ''
 }
 
-function CreateTodoContainer () {
+function EditTodoContainer () {
   const [state, setState] = useState(defaultState)
   const [inputStatus, setStatus] = useState('')
   const [processFinished, setProcessFinished] = useState(false)
   const dispatch = useDispatch()
+  const mounted = useRef(null)
   const router = useRouter()
-  const error = useSelector((states) => states.todos.error)
+  const { todo, error } = useSelector((states) => states.todos)
+
+  useEffect(() => {
+    if (Object.keys(todo).length > 0) {
+      setState({ ...todo, id: todo._id })
+    }
+  }, [todo])
+
+  useEffect(() => {
+    if (
+      mounted.current === null &&
+      router.query.id !== undefined
+    ) {
+      mounted.current = true
+      dispatch(fetchTodo(router.query.id[0]))
+    }
+  }, [dispatch, router.query.id])
 
   const resetErrorsMessages = () => {
     if (error !== '') {
@@ -40,7 +57,7 @@ function CreateTodoContainer () {
       return
     }
 
-    dispatch(createNewTodo(state))
+    dispatch(updateExistingTodo(state))
       .then(unwrapResult)
       .then(() => {
         setProcessFinished(true)
@@ -72,8 +89,8 @@ function CreateTodoContainer () {
       inputStatus={inputStatus}
       processFinished={processFinished}
       content={{
-        title: 'Create a Todo',
-        mode: 'create'
+        title: 'Edit Todo',
+        mode: 'edit'
       }}
       onTextChange={handleInputChange}
       onTextClick={handleInputClick}
@@ -85,4 +102,4 @@ function CreateTodoContainer () {
   )
 }
 
-export default CreateTodoContainer
+export default EditTodoContainer
