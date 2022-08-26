@@ -31,10 +31,11 @@ function EditTodoContainer () {
       router.query.id !== undefined &&
       Object.keys(todo).length === 0
     ) {
+
       mounted.current = true
       dispatch(fetchTodo(router.query.id[0]))
     }
-  }, [dispatch, router.query.id])
+  }, [dispatch, router.query.id, todo])
 
   const resetErrorsMessages = () => {
     if (error !== '') {

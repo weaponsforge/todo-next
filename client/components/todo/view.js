@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import Link from 'next/link'
 
 // MUI
 import Box from '@mui/material/Box'
@@ -11,11 +10,9 @@ import Typography from '@mui/material/Typography'
 import styles from './styles'
 
 // Layout
-import AppContainer from '@/components/layout/appcontainer'
-import AppCard from '@/layout/appcard'
 import AppLoading from '@/layout/apploading'
 import AppModal from '@/layout/appmodal'
-import SimpleContainer from '@/layout/simplecontainer'
+import AppFrame from '@/layout/appframe'
 
 function ViewTodo ({
   isDeleted,
@@ -34,8 +31,16 @@ function ViewTodo ({
     _id: 'ID'
   }
 
+  const navigation = [
+    { href: '/', name: 'Home' },
+    { href: '/todo', name: 'Todos' },
+  ]
+
   return (
-    <AppContainer maxWidth='sm'>
+    <AppFrame
+      maxWidth='sm'
+      navigation={navigation}
+    >
       <AppModal
         isOpen={isModalOpen}
         titleText='Delete Todo'
@@ -57,73 +62,63 @@ function ViewTodo ({
         }}
       />
 
-      <AppCard>
-        <h1>Todo Item</h1>
+      <h1>Todo Item</h1>
 
-        <Box sx={{ minHeight: 400, width: '100%', textAlign: 'left' }}>
-          {(loading === 'pending')
-            ? <AppLoading />
-            : (error !== '')
-              ? <Typography variant='caption' sx={{ color: 'red' }}>
-                {error}
-              </Typography>
-              : <Box>
-                {Object.keys(titles).map((field, index) => (
-                  <Box sx={{ display: 'flex' }} key={index}>
-                    <Typography variant='subtitle2'>
-                      {titles[field]}: &nbsp;
-                    </Typography>
-                    <span>
-                      {['createdAt', 'updatedAt'].includes(field)
-                        ? new Date(todo[field]).toDateString()
-                        : todo[field]
-                      }
-                    </span>
-                  </Box>
-                ))}
-
-                <hr />
-
-                <Box>
-                  <Typography variant='subtitle2'>Content</Typography>
-                  {todo.content}
+      <Box sx={{ minHeight: 400, width: '100%', textAlign: 'left' }}>
+        {(loading === 'pending')
+          ? <AppLoading />
+          : (error !== '')
+            ? <Typography variant='caption' sx={{ color: 'red' }}>
+              {error}
+            </Typography>
+            : <Box>
+              {Object.keys(titles).map((field, index) => (
+                <Box sx={{ display: 'flex' }} key={index}>
+                  <Typography variant='subtitle2'>
+                    {titles[field]}: &nbsp;
+                  </Typography>
+                  <span>
+                    {['createdAt', 'updatedAt'].includes(field)
+                      ? new Date(todo[field]).toDateString()
+                      : todo[field]
+                    }
+                  </span>
                 </Box>
+              ))}
+
+              <hr />
+
+              <Box>
+                <Typography variant='subtitle2'>Content</Typography>
+                {todo.content}
               </Box>
-          }
-        </Box>
+            </Box>
+        }
+      </Box>
 
-        <Box sx={{ textAlign: 'left', color: 'red' }}>
-          <Typography variant='caption'>
-            {error || '' || <br />}
-          </Typography>
-        </Box>
+      <Box sx={{ textAlign: 'left', color: 'red' }}>
+        <Typography variant='caption'>
+          {error || '' || <br />}
+        </Typography>
+      </Box>
 
-        <CardActions sx={styles.buttons}>
-          <ButtonGroup
-            variant='outlined'
-            disabled={loading === 'pending'}
-          >
-            <Button
-              onClick={() => setModalOpen(true)}
-            >Delete
-            </Button>
-            <Button onClick={handleEditPress}>
-              Edit
-            </Button>
-            <Button
-              onClick={onBackClick}
-              variant='contained'>
-              Back
-            </Button>
-          </ButtonGroup>
-        </CardActions>
-      </AppCard>
-
-      <SimpleContainer>
-        <Link href='/'>Home</Link>&nbsp; | &nbsp;
-        <Link href='/todo'>Todos</Link>
-      </SimpleContainer>
-    </AppContainer>
+      <CardActions sx={styles.buttons}>
+        <ButtonGroup
+          variant='outlined'
+          disabled={loading === 'pending'}
+        >
+          <Button onClick={() => setModalOpen(true)}>
+            Delete
+          </Button>
+          <Button onClick={handleEditPress}>
+            Edit
+          </Button>
+          <Button onClick={onBackClick} variant='contained'>
+            Back
+          </Button>
+        </ButtonGroup>
+      </CardActions>
+    </AppFrame>
   )
 }
 
