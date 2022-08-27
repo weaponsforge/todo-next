@@ -72,7 +72,6 @@ function EditTodoContainer () {
   }
 
   const handleReset = () => {
-    dispatch(todosReset())
     setState(defaultState)
   }
 
