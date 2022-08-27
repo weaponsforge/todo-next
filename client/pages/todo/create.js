@@ -53,7 +53,6 @@ function CreateTodoContainer () {
   }
 
   const handleReset = () => {
-    dispatch(todosReset())
     setState(defaultState)
   }
 
