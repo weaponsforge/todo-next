@@ -36,6 +36,10 @@ app.use((err, req, res, next) => {
   return res.status(500).send(err.message)
 })
 
-app.listen(PORT, () => {
-  console.log(`listening on http://localhost:${PORT}`)
-})
+if (process.env.DEPLOYMENT_PLATFORM !== 'vercel') {
+  app.listen(PORT, () => {
+    console.log(`listening on http://localhost:${PORT}`)
+  })
+}
+
+module.exports.expressApp = app
