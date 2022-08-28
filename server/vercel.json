@@ -1,0 +1,14 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/src(.*)",
+      "destination": "/public/401.html"
+    }
+  ]
+}

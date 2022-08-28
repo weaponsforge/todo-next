@@ -1,0 +1,14 @@
+node_modules/
+*.env
+*.zip
+*.md
+*.toml
+
+.vercel
+.vscode
+.github
+.eslintrc.js
+.eslintignore
+.vercelignore
+package.json
+package-lock.json
