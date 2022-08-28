@@ -1,12 +1,14 @@
-name: Deploy to Vercel Production Environment
+name: Deploy to Production Environment
+
+# This workflow deploys the backend, a full-server express app to Vercel
+# as opposed to their recommended approach of deploying serverless functions
+# using NextJS "pages/api". Vercel CLI v28.2.0 is used for deployment
 
 # This workflow will trigger on any tag/release created on *any* branch
 # Make sure to create tags/releases only from the "master" branch for consistency
-
 on:
-  push:
-    branches:
-      - wip/weaponsforge-53
+  release:
+    types: [published]
 
 jobs:
   lint-client:
