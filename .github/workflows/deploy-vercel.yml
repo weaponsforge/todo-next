@@ -1,0 +1,35 @@
+name: GitHub Actions Vercel Production Deployment
+
+on:
+  push:
+    branches:
+      - wip/weaponsforge-53
+
+jobs:
+  deploy-server:
+    name: Deploy Server to Vercel
+    runs-on: ubuntu-latest
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+      - name: Use NodeJS v16.14.2
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.14.2
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+      - name: Pull Vercel Environment Information
+        run: |
+          vercel --cwd ~/server
+          vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Build Project Artifacts
+        run: |
+          vercel --cwd ~/server
+          vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Deploy Project Artifacts to Vercel
+        run: |
+          vercel --cwd ~/server
+          vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
