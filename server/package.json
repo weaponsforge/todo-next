@@ -2,9 +2,10 @@
   "name": "server",
   "version": "1.0.0",
   "description": "This directory will contain the backend express server that will serve the Todo CRUD API endpoints.",
-  "main": "src/index.js",
+  "main": "api/index.js",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "node api/index.js",
+    "start:vercel": "node api/index.js",
     "dev": "nodemon watch src/index.js",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix"
@@ -16,6 +17,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
+    "express-rate-limit": "^6.5.2",
     "mongoose": "^6.5.2"
   },
   "devDependencies": {
