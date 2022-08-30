@@ -1,0 +1,15 @@
+node_modules/
+*.env
+*.zip
+*.md
+*.toml
+
+.vercel
+.vscode
+.git
+.github
+.eslintrc.js
+.eslintignore
+.vercelignore
+package.json
+package-lock.json
