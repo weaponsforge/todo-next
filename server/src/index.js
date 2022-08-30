@@ -42,4 +42,4 @@ if (process.env.DEPLOYMENT_PLATFORM !== 'vercel') {
   })
 }
 
-module.exports.expressApp = app
+module.exports = app

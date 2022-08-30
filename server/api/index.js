@@ -1,2 +1,4 @@
-const expressApp = require('../src/index')
-module.exports = expressApp
+require('dotenv').config()
+const app = require('../src/index')
+
+module.exports = app
