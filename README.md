@@ -28,7 +28,9 @@ The following dependencies are used to build and run the image. Please feel feel
 
 ### Docker for Localhost Development
 
-1. Set up the environment variables for the `/client` and `/server` directories like mentioned in the [Manual Installation](#manual-installation) section, step no. 2.
+1. Set up the environment variables for the `/client` and `/server` directories.
+   - Visit the `client/README.md` and `server/README.md` files for more information.
+   - Take note of the `.env` variables setup for Windows and Linux.
 2. Verify that ports 3000 and 3001 are free because the client and server containers will use these ports.
 3. Stop current-running my-phonebook containers, if any.
    ```
