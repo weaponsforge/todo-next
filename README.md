@@ -75,6 +75,14 @@ The following docker-compose commands build a small client image targeted for cr
    docker compose -f docker-compose.prod.yml down
    ```
 
+### Docker Commands
+
+- **view list of running containers**
+   - `docker ps -a`
+- **bash into the development mongodb container**<br>
+   - `docker exec -it <MONGO_CONTAINER> mongo -u <DB_USERNAME> -p <DB_PASS> <SERVICE_NAME>:27017/<DB_NAME> --authenticationDatabase <AUTH_SOURCE_FROM_URI>`
+   - i.e. (see the .env.example and docker-compose.dev.yml files)<br> `docker exec -it mongodb mongo -u admin -p secret mongo:27017/todo-next --authenticationDatabase admin`
+
 @weaponsforge<br>
 20220820<br>
 20240714
