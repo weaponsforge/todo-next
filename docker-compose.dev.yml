@@ -1,0 +1,42 @@
+version: "3"
+services:
+  # NextJS v13 app running on development mode
+  todo-client-dev:
+    container_name: todo-client-dev
+    image: weaponsforge/todo-client:dev
+    env_file:
+      - ./client/.env
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+      target: development
+    networks:
+      - todo-next-dev
+    volumes:
+      - ./client:/opt/client
+      - /opt/client/node_modules
+      - /opt/client/.next
+    ports:
+      - "3000:3000"
+
+  # Express server running in development mode
+  todo-server-dev:
+    container_name: todo-server-dev
+    image: weaponsforge/todo-server:dev
+    env_file:
+      - ./server/.env
+    build:
+      context: ./server
+      dockerfile: ./Dockerfile
+      target: development
+    networks:
+      - todo-next-dev
+    volumes:
+      - ./server/src:/opt/server/src
+    ports:
+      - "3001:3001"
+
+networks:
+  todo-next-dev:
+    name: todo-next-dev
+    external: false
