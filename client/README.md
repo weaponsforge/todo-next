@@ -25,7 +25,8 @@ This directory will contain the web user interfaces for interacting with the Tod
    | Variable Name         | Description                                                                                                                                                                                                                                                                                                                                               |
    | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
    | NEXT_PUBLIC_BASE_PATH | Directory name of assets and media that NextJS uses for the app.<br><br>Set its value to blank `''` when working on development mode in localhost.<br>Set its value to the sub-directory name where the exported NextJS app is to be deployed, i.e. `/<YOUR_REPOSITORY_NAME>` when deploying on a repository (sub-directory) of a root GitHub Pages site. |
-   | BASE_API_URL          | Base URL of the Todo CRUD API from the `/server` directory.                                                                                                                                                                                                                                                                                               |
+   | BASE_API_URL          | Base URL of the Todo CRUD API from the `/server` directory. |
+   | WATCHPACK_POLLING | Enables hot reload on NextJS apps (tested on NextJS v13.2.1) running inside Docker containers on a Windows host. Set it to `true` if running Docker Desktop with WSL2 on a Windows OS.|
 
 ## Usage
 

@@ -1,0 +1,36 @@
+version: "3"
+services:
+  # NextJS exported app running on an nginx webserver
+  todo-client-prod:
+    container_name: todo-client-prod
+    image: weaponsforge/todo-client:latest
+    restart: always
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+      target: production
+    networks:
+      - todo-next-prod
+    ports:
+      - "3000:3000"
+
+  # Express web server app running in production mode
+  todo-server-prod:
+    container_name: todo-server-prod
+    image: weaponsforge/todo-server:latest
+    restart: always
+    env_file:
+      - ./server/.env
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+      target: production
+    networks:
+      - todo-next-prod
+    ports:
+      - "3001:3001"
+
+networks:
+  todo-next-prod:
+    name: todo-next-prod
+    external: false
