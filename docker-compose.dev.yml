@@ -50,6 +50,7 @@ services:
       - todo-next-dev
     volumes:
       - mongo-data:/data/db
+      - ./data/dump:/data/dump
     command: mongod
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
@@ -66,4 +67,4 @@ networks:
 # Named volumes for persisting data
 volumes:
   mongo-data:
-#    driver: local
+    driver: local
