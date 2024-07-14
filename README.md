@@ -46,15 +46,24 @@ The following dependencies are used to build and run the image. Please feel feel
      ```
 5. Edit any of the files under the `/client` or `/server` directory after running step no. 2.2 and wait for their live reload on `http://localhost:3000` (client) and `http://localhost:3001` (server).
    ```
-   # 2.1. Build the client and server containers for localhost development.
+   # 5.1. Build the client and server containers for localhost development.
    docker compose -f docker-compose.dev.yml build
 
-   # 2.2. Create and start the development client and server containers
+   # 5.2. Create and start the development client and server containers
    docker compose -f docker-compose.dev.yml up
 
-   # 2.3. Stop and remove the development containers, networks, images and volumes
+   # 5.3. Stop and remove the development containers, networks, images and volumes
    docker compose -f docker-compose.dev.yml down
    ```
+6. (Optional) To seed the container mongodb with default data:
+   - Create a `"/data/dump"` directory in the root project directory.
+   - Put binary data in the dump directory (data from `mongodump`)
+   - Start the development client and server containers (**# 5**)
+   - Run this script in another terminal (use GitBash if on Windows OS):<br>
+     ```bash
+     chmod u+x scripts/docker-mongo-seed.sh
+     ./scripts/docker-mongo-seed.sh
+     ```
 
 ### Docker for Production Deployment
 
@@ -74,6 +83,24 @@ The following docker-compose commands build a small client image targeted for cr
    # 3.2. Stop and remove the production containers, networks, images and volumes
    docker compose -f docker-compose.prod.yml down
    ```
+
+### Docker Commands
+
+- **view list of running containers**
+   - `docker ps -a`
+- **bash into the development mongodb container**<br>
+   - `docker exec -it <MONGO_CONTAINER> /bin/sh`
+- **bash into the development mongodb shell**<br>
+   - `docker exec -it <MONGO_CONTAINER> mongo -u <DB_USERNAME> -p <DB_PASS> <SERVICE_NAME>:27017/<DB_NAME> --authenticationDatabase <AUTH_SOURCE_FROM_URI>`
+   - i.e. (see the .env.example and docker-compose.dev.yml files)<br> `docker exec -it mongodb mongo -u admin -p secret mongo:27017/todo-next --authenticationDatabase admin`
+- **seed default data using mongorestore**
+  - _(Bash into the development mongodb container, then):_
+     - `mongorestore --host <SERVICE_NAME>:27017 -d <DB_NAME> -u <DB_USER> -p <DB_PASS> --authenticationDatabase <AUTH_SOURCE_FROM_URI> PATH/TO/dump`
+     - i.e. (see the .env.example and docker-compose.dev.yml files)<br>
+  `mongorestore --host mongo:27017 -d todo-next -u admin -p secret --authenticationDatabase admin /data/dump`
+  - _(Directly from the command line):_<br>
+    - `docker exec -it <MONGO_CONTAINER> mongorestore --host <SERVICE_NAME>:27017 -d <DB_NAME> -u <DB_USER> -p <DB_PASS> --authenticationDatabase <AUTH_SOURCE_FROM_URI> /data/dump`
+    - `docker exec -it mongodb mongorestore --host mongo:27017 -d todo-next -u admin -p secret --authenticationDatabase admin /data/dump`
 
 @weaponsforge<br>
 20220820<br>

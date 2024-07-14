@@ -1,9 +1,10 @@
-version: "3"
 services:
   # NextJS v13 app running on development mode
   todo-client-dev:
     container_name: todo-client-dev
     image: weaponsforge/todo-client:dev
+    depends_on:
+      - todo-server-dev
     env_file:
       - ./client/.env
     build:
@@ -35,8 +36,35 @@ services:
       - ./server/src:/opt/server/src
     ports:
       - "3001:3001"
+    depends_on:
+      - mongo
+    links:
+      - mongo
+
+  # MongoDB service
+  mongo:
+    container_name: mongodb
+    image: mongo:4.4.6
+    restart: always
+    networks:
+      - todo-next-dev
+    volumes:
+      - mongo-data:/data/db
+      - ./data/dump:/data/dump
+    command: mongod
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: secret
+      MONGO_INITDB_DATABASE: todo-next
+    ports:
+      - "27017:27017"
 
 networks:
   todo-next-dev:
     name: todo-next-dev
     external: false
+
+# Named volumes for persisting data
+volumes:
+  mongo-data:
+    driver: local

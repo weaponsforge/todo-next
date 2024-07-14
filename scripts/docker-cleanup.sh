@@ -8,3 +8,4 @@ docker rm $(docker ps -a -q)
 docker system prune -f
 docker system prune -a
 docker volume prune -f
+docker volume rm $(docker volume ls)
