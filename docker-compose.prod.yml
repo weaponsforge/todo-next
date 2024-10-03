@@ -15,6 +15,7 @@ services:
       - "3000:3000"
 
   # Express web server app running in production mode
+  # Connects to remote MongoDB i.e., MongoDB Atlas
   todo-server-prod:
     container_name: todo-server-prod
     image: weaponsforge/todo-server:latest
