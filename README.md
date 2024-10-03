@@ -129,6 +129,8 @@ The following docker-compose commands build a small client image targeted for cr
    - `docker ps -a`
 - **bash into the development mongodb container**<br>
    - `docker exec -it <MONGO_CONTAINER> /bin/sh`
+- **inspect the contents of an image**<br>
+   - `docker run -it --rm <IMAGE_NAME> /bin/sh`
 - **bash into the development mongodb shell**<br>
    - `docker exec -it <MONGO_CONTAINER> mongo -u <DB_USERNAME> -p <DB_PASS> <SERVICE_NAME>:27017/<DB_NAME> --authenticationDatabase <AUTH_SOURCE_FROM_URI>`
    - i.e. (see the .env.example and docker-compose.dev.yml files)<br> `docker exec -it mongodb mongo -u admin -p secret mongo:27017/todo-next --authenticationDatabase admin`
@@ -174,4 +176,4 @@ This project deploys the production live demo to GitHub Pages (front end) and Ve
 
 @weaponsforge<br>
 20220820<br>
-20240714
+20241004
