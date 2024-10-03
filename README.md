@@ -2,6 +2,17 @@
 
 todo-next is a regular TO-DO notes listing app aimed for testing using NextJS and Redux Toolkit for front-end.<br>It also features a simple Todo CRUD API running on an express backend and uses mongodb for storing data.
 
+### Table of Contents
+
+- [Installation](#installation)
+- [Installation Using Docker](#installation-using-docker)
+- [Docker for Localhost Development](#docker-for-localhost-development)
+   - [Build Local Images](#build-local-images)
+   - [Use Pre-Built Development Images](#use-pre-built-development-images)
+   - [Seed MongoDB with Default Data](#seed-mongodb-with-default-data)
+   - [Docker Commands](#docker-commands)
+- [Deployment With GitHub Actions](#deployment-with-gitHub-actions)
+
 ## Installation
 
 1. Clone this repository.<br>
