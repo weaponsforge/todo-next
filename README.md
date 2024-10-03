@@ -28,6 +28,8 @@ The following dependencies are used to build and run the image. Please feel feel
 
 ### Docker for Localhost Development
 
+#### Build Local Images
+
 1. Set up the environment variables for the `/client` and `/server` directories.
    - Visit the `client/README.md` and `server/README.md` files for more information.
    - Take note of the `.env` variables setup for Windows and Linux to enable hot reload.
@@ -55,15 +57,41 @@ The following dependencies are used to build and run the image. Please feel feel
    # 5.3. Stop and remove the development containers, networks, images and volumes
    docker compose -f docker-compose.dev.yml down
    ```
-6. (Optional) To seed the container mongodb with default data:
-   - Create a `"/data/dump"` directory in the root project directory.
-   - Put binary data in the dump directory (data from `mongodump`)
-   - Start the development client and server containers (**# 5**)
-   - Run this script in another terminal (use GitBash if on Windows OS):<br>
-     ```bash
-     chmod u+x scripts/docker-mongo-seed.sh
-     ./scripts/docker-mongo-seed.sh
-     ```
+
+#### Use Pre-Built Development Images
+
+This project deploys the latest **client** and **server** development Docker images to Docker Hub on the creation of new Release/Tags. They are available at:
+
+https://hub.docker.com/r/weaponsforge/todo-next
+
+1. Pull the pre-built development Docker image using any of the two (2) options:
+   - Open a terminal and run:
+      ```
+      docker pull weaponsforge/todo-next:client
+      docker pull weaponsforge/todo-next:server
+      ```
+   - Navigate to the gsites-components root project directory, then run:
+      `docker compose -f docker-compose.dev.yml pull`
+
+2. Set up the environment variables for the `/client` and `/server` directories.
+   - Visit the `client/README.md` and `server/README.md` files for more information.
+   - Take note of the `.env` variables setup for Windows and Linux to enable hot reload.
+
+3. Run the development images.<br>
+`docker compose -f docker-compose.dev.yml up`
+
+#### Seed MongoDB with Default Data
+
+(Optional) To seed the container mongodb with default data:
+
+1. Create a `"/data/dump"` directory in the root project directory.
+2. Put binary data in the dump directory (data from `mongodump`)
+3. Start the development client and server containers (**# 5**)
+4. Run this script in another terminal (use GitBash if on Windows OS):<br>
+   ```bash
+   chmod u+x scripts/docker-mongo-seed.sh
+   ./scripts/docker-mongo-seed.sh
+   ```
 
 ### Docker for Production Deployment
 
@@ -101,6 +129,37 @@ The following docker-compose commands build a small client image targeted for cr
   - _(Directly from the command line):_<br>
     - `docker exec -it <MONGO_CONTAINER> mongorestore --host <SERVICE_NAME>:27017 -d <DB_NAME> -u <DB_USER> -p <DB_PASS> --authenticationDatabase <AUTH_SOURCE_FROM_URI> /data/dump`
     - `docker exec -it mongodb mongorestore --host mongo:27017 -d todo-next -u admin -p secret --authenticationDatabase admin /data/dump`
+
+## Deployment With GitHub Actions
+
+This project deploys the production live demo to GitHub Pages (front end) and Vercel (server). It uses MongoDB Atlas for MongoDB. The following requirements are optional. They are only required if there is a need to deploy the web application for live demonstration purposes.
+
+### Requirements
+
+1. GitHub Pages setup
+2. Vercel account
+   - pre-configured with a [stand-alone Express server](https://vercel.com/guides/using-express-with-vercel) of the repository's **server** component
+3. MongoDB Atlas database
+4. Docker Hub account
+   - (Optional) required to push the development images to Docker Hub
+
+#### GitHub Secrets
+
+| GitHub Secrets | Description |
+| --- | --- |
+| NEXT_PUBLIC_BASE_PATH | Root directory path name that NextJS uses for assets, media and client-side routing for the app.<br><br>Set its value to blank `''` when working on development mode in localhost.<br><br>Set its value to the sub-directory name where the exported NextJS app is to be deployed, i.e. `/<YOUR_REPOSITORY_NAME>` when<br> deploying on a repository (sub-directory) of a root GitHub Pages site, i.e, on `https://<YOUR_GITHUB_USERNAME>.github.io/<YOUR_REPOSITORY_NAME>` |
+| BASE_API_URL | 	Base URL of the Todo CRUD API from the `/server` directory. |
+| VERCEL_ORG_ID | Vercel app's organization ID |
+| VERCEL_PROJECT_ID | Vercel app's project ID |
+| VERCEL_TOKEN | Vercel app's project ID |
+| DOCKERHUB_USERNAME | (Optional) Docker Hub username. Required to enable pushing the development image to Docker Hub. |
+| DOCKERHUB_TOKEN | (Optional) Deploy token for the Docker Hub account. Required to enable pushing the development image to the Docker Hub. |
+
+#### GitHub Variables
+
+| GitHub Variable | Description |
+| --- | --- |
+| DOCKERHUB_USERNAME | (Optional) Docker Hub username. Required to enable pushing the development image to Docker Hub. |
 
 @weaponsforge<br>
 20220820<br>
