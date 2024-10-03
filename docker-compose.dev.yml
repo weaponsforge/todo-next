@@ -2,7 +2,7 @@ services:
   # NextJS v13 app running on development mode
   todo-client-dev:
     container_name: todo-client-dev
-    image: weaponsforge/todo-client:dev
+    image: weaponsforge/todo-next:client
     depends_on:
       - todo-server-dev
     env_file:
@@ -23,7 +23,7 @@ services:
   # Express server running in development mode
   todo-server-dev:
     container_name: todo-server-dev
-    image: weaponsforge/todo-server:dev
+    image: weaponsforge/todo-next:server
     env_file:
       - ./server/.env
     build:
