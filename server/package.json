@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node api/index.js",
     "start:vercel": "node api/index.js",
-    "dev": "nodemon watch src/index.js",
+    "dev": "nodemon --inspect=0.0.0.0:9229 src/index.js",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix"
   },

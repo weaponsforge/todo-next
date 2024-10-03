@@ -6,3 +6,6 @@ Dockerfile
 .dockerignore
 .env
 .vercel
+*.zip
+*.rar
+*.txt

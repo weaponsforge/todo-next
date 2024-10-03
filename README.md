@@ -12,6 +12,7 @@ todo-next is a regular TO-DO notes listing app aimed for testing using NextJS an
    - [Seed MongoDB with Default Data](#seed-mongodb-with-default-data)
    - [Docker Commands](#docker-commands)
 - [Deployment With GitHub Actions](#deployment-with-gitHub-actions)
+- [Other Notes](#other-notes)
 
 ## Installation
 
@@ -173,6 +174,40 @@ This project deploys the production live demo to GitHub Pages (front end) and Ve
 | GitHub Variable | Description |
 | --- | --- |
 | DOCKERHUB_USERNAME | (Optional) Docker Hub username. Required to enable pushing the development image to Docker Hub. |
+
+## Other Notes
+
+<details>
+<summary>
+<b>Debugging the server app running inside a container with VSCode</b>
+</summary>
+
+1. Add the following configuration in the VSCode `launch.json` file's `"configuration": []` array. <br>
+   ```
+   {
+     "type": "node",
+     "request": "attach",
+     "name": "Docker: Attach to Node",
+     "port": 9229,
+     "address": "localhost",
+     "localRoot": "${workspaceFolder}//server",
+     "remoteRoot": "/opt/server",
+     "restart": true,
+     "sourceMaps": true,
+     "skipFiles": ["<node_internals>/**"]
+   }
+   ```
+
+2. Run the server container.
+
+3. To enable debugging the server running inside the container from **step # 2** with VSCode:
+   - Press Ctrl + Shift + D
+   - Select `"Docker: Attach to Node"`
+   - Press the **Play** button (green arrow icon)
+
+</details>
+
+<br><br>
 
 @weaponsforge<br>
 20220820<br>
