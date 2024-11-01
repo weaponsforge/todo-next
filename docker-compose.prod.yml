@@ -1,4 +1,3 @@
-version: "3"
 services:
   # NextJS exported app running on an nginx webserver
   todo-client-prod:
