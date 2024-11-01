@@ -5,6 +5,8 @@ services:
     container_name: todo-client-prod
     image: weaponsforge/todo-client:latest
     restart: always
+    env_file:
+      - ./client/.env
     build:
       context: ./client
       dockerfile: Dockerfile
