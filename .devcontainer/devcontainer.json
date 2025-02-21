@@ -1,17 +1,10 @@
 {
-  "name": "ToDo DevContainer",
-  "dockerComposeFile": "../docker-compose.dev.yml",
-  "service": "client",  // 👈 Change to the main service you want VS Code to attach to
-  "workspaceFolder": "/workspace",
-
-  "settings": {
-    "terminal.integrated.defaultProfile.linux": "bash"
-  },
-
-  "forwardPorts": [3000, 3001],  // 👈 Forward client & server ports if needed
-  "postCreateCommand": "sh .devcontainer/setup.sh", // Or run custom setup scripts
-
-  "remoteEnv": {
-    "NODE_ENV": "development"
-  }
+  "name": "Todo App DevContainer",
+  "dockerComposeFile": ["../docker-compose.dev.yml"],
+  "service": "todo-client-dev",  // VS Code attaches here
+  "workspaceFolder": "/opt/app", // Monorepo root
+  "runServices": ["todo-client-dev", "todo-server-dev", "mongo"],
+  "postCreateCommand": "chmod +x .devcontainer/setup.sh && .devcontainer/setup.sh",
+  "forwardPorts": [3000, 3001, 27017, 9229],
+  "extensions": ["esbenp.prettier-vscode", "dbaeumer.vscode-eslint"]
 }
