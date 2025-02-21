@@ -1,0 +1,17 @@
+{
+  "name": "ToDo DevContainer",
+  "dockerComposeFile": "../docker-compose.dev.yml",
+  "service": "client",  // 👈 Change to the main service you want VS Code to attach to
+  "workspaceFolder": "/workspace",
+
+  "settings": {
+    "terminal.integrated.defaultProfile.linux": "bash"
+  },
+
+  "forwardPorts": [3000, 3001],  // 👈 Forward client & server ports if needed
+  "postCreateCommand": "sh .devcontainer/setup.sh", // Or run custom setup scripts
+
+  "remoteEnv": {
+    "NODE_ENV": "development"
+  }
+}
