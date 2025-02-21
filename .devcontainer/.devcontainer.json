@@ -2,6 +2,7 @@
   "name": "ToDo DevContainer",
   "dockerComposeFile": "../docker-compose.dev.yml",
   "service": "client",  // 👈 Change to the main service you want VS Code to attach to
+  "runServices": ["todo-client-dev", "todo-server-dev", "mongo"],
   "workspaceFolder": "/workspace",
 
   "settings": {
