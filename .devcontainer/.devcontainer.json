@@ -16,7 +16,7 @@
   },
 
   "forwardPorts": [3000, 3001],
-  "postCreateCommand": "chmod +x .devcontainer/setup.sh && .devcontainer/setup.sh",
+  "postCreateCommand": "docker compose -f ../docker-compose.dev.yml build && chmod +x .devcontainer/setup.sh && .devcontainer/setup.sh",
 
   "remoteEnv": {
     "NODE_ENV": "development"
