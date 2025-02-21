@@ -15,7 +15,8 @@
     "eamodio.gitlens",
     "mongodb.mongodb-vscode"
   ],
-  "postCreateCommand": "cp client/.env.example client/.env && cp server/.env.example server/.env && docker compose -f docker-compose.dev.yml build",
+  "initializeCommand": "cp client/.env.example client/.env && cp server/.env.example server/.env",
+  "postCreateCommand": "docker compose -f ../docker-compose.dev.yml build",
   "remoteEnv": {
     "NODE_ENV": "development"
   },
