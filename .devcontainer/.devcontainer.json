@@ -5,6 +5,12 @@
   "runServices": ["todo-client-dev", "todo-server-dev", "mongo"],
   "workspaceFolder": "/workspace",
 
+  "extensions": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "ms-azuretools.vscode-docker"
+  ],
+
   "settings": {
     "terminal.integrated.defaultProfile.linux": "bash"
   },
