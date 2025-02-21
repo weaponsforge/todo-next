@@ -14,6 +14,7 @@ services:
     networks:
       - todo-next-dev
     volumes:
+      - ./:/opt/app
       - ./client:/opt/client
       - /opt/client/node_modules
       - /opt/client/.next
@@ -33,6 +34,7 @@ services:
     networks:
       - todo-next-dev
     volumes:
+      - ./:/opt/app
       - ./server:/opt/server
       - /opt/server/node_modules
     ports:
